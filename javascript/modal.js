@@ -4,29 +4,29 @@ var timeoutTimer;
 var warningTimer;
 
 // Get the modals
-var toModal = document.getElementById('toModal');
-var warnModal = document.getElementById('warnModal');
+var timedOutModal = document.getElementById('toModal');
+var warningModal = document.getElementById('warnModal');
 
-// only capture events when no dialogs are open
-if (warnModal.style.display === 'none' && toModal.style.display === 'none') {
-    window.onclick = function() {resetTimers()}
-    window.onkeydown = function() {resetTimers()}
-    window.onfocus = function() {resetTimers()}
-    window.onwheel = function() {resetTimers()}
-    window.onscroll = function() {resetTimers()}
+// Watch for user events when no dialogs are open
+if (warningModal.style.display === 'none' && timedOutModal.style.display === 'none') {
+    window.onclick = function () { resetTimers() }
+    window.onkeydown = function () { resetTimers() }
+    window.onfocus = function () { resetTimers() }
+    window.onwheel = function () { resetTimers() }
+    window.onscroll = function () { resetTimers() }
 }
 
 // Get the buttons
-var tobtn = document.getElementById("toBtn");
-var warnbtn = document.getElementById("warnBtn");
-var closeButton = document.getElementById("close"); 
+var timedOutButton = document.getElementById("toBtn");
+var warningButton = document.getElementById("warnBtn");
+var closeButton = document.getElementById("close");
 
 // When the user clicks the button, open the modals 
-tobtn.onclick = function() {showTimedoutModal()}
-warnbtn.onclick = function() {showWarningModal()}
-                       
+timedOutButton.onclick = function () { showTimedoutModal() }
+warningButton.onclick = function () { showWarningModal() }
+
 // Start timers on page load
-window.onload = function() {setup()}
+window.onload = function () { setup() }
 
 // Spinup timers
 function setup() {
@@ -44,19 +44,19 @@ function resetTimers() {
 // Display timeout warning modal
 function showWarningModal() {
     closeModals();
-    warnModal.style.display = "block";
+    warningModal.style.display = "block";
 }
 
 // Close warning modal and show timed out modal
 function showTimedoutModal() {
     closeModals();
-    toModal.style.display = "block";
+    timedOutModal.style.display = "block";
 }
 
 // Close all open dialogs
 function closeModals() {
-    warnModal.style.display = "none";
-    toModal.style.display = "none";
+    warningModal.style.display = "none";
+    timedOutModal.style.display = "none";
 }
 
 // Close warning dialog and reset timers
