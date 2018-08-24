@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Timeout Modal Example</title>
+    <link rel="stylesheet" href="modalstyle.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body>
+    <div>
+        <!-- Open modals manually -->
+        <button id="toBtn">Timed out Modal</button>
+        <button id="warnBtn">Warning modal</button>
+    </div>
+
+    <div>
+        <form>
+            <p>
+                Text Input Field:
+                <br>
+                <input type="text" name="textfield">
+                <br>
+            </p>
+    
+            <p>
+                Radio Input:
+                <br>
+                <input type="radio" name="radio" value="option1"> Option 1
+                <br>
+                <input type="radio" name="radio" value="option2" checked> Option 2
+                <br>
+                <input type="radio" name="radio" value="option3"> Option 3
+                <br>
+            </p>
+    
+            <p>
+                Date Input:
+                <br>
+                <input type="date" name="date">
+                <br>
+            </p>
+    
+        </form>
+    </div>
+
+    <!-- The timed out Modal -->
+    <div id="toModal" class="modal">
+        <div class="wrapper">
+            <div class="header">
+                Modal Timeout
+            </div>
+            <div class="content">
+                <p>Session has timed out. Please close the window and re-access your application via CONOPS.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- The warning Modal -->
+    <div id="warnModal" class="modal">
+        <div class="wrapper">
+            <div class="header">
+                Modal Warning
+            </div>
+            <div class="content">
+                <p>Your session is about to expire. Please close this dialog to prevent timing out.</p>
+            </div>
+            <div class="footer">
+                <button id="close">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript" src="modal.js"></script>
+</body>
+
+</html>
