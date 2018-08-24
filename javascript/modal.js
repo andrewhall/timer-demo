@@ -9,29 +9,21 @@ var warnModal = document.getElementById('warnModal');
 
 // only capture events when no dialogs are open
 if (warnModal.style.display === 'none' && toModal.style.display === 'none') {
-    window.onclick = function(evnt) {log(evnt)}
-    window.onkeydown = function(evnt) {log(evnt)}
-    window.onfocus = function(evnt) {log(evnt)}
-    window.onwheel = function(evnt) {log(evnt)}
-    window.onscroll = function(evnt) {log(evnt)}
+    window.onclick = function() {resetTimers()}
+    window.onkeydown = function() {resetTimers()}
+    window.onfocus = function() {resetTimers()}
+    window.onwheel = function() {resetTimers()}
+    window.onscroll = function() {resetTimers()}
 }
 
-function log(evnt) {
-    console.log(evnt.target.id);
-    resetTimers();
-}
-
-// Get the button that opens the modals
+// Get the buttons
 var tobtn = document.getElementById("toBtn");
 var warnbtn = document.getElementById("warnBtn");
+var closeButton = document.getElementById("close"); 
 
 // When the user clicks the button, open the modals 
 tobtn.onclick = function() {showTimedoutModal()}
-
 warnbtn.onclick = function() {showWarningModal()}
-
-// Get the button that closes the warning modal
-var close = document.getElementById("close"); 
                        
 // Start timers on page load
 window.onload = function() {setup()}
@@ -68,7 +60,7 @@ function closeModals() {
 }
 
 // Close warning dialog and reset timers
-close.onclick = function () {
+closeButton.onclick = function () {
     closeModals();
     resetTimers();
 }
