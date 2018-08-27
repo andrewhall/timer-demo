@@ -1,11 +1,11 @@
-var TIME_OUT = 15000;
-var WARNING = 10000;
-var timeoutTimer;
-var warningTimer;
+let TIME_OUT = 15000;
+let WARNING = 10000;
+let timeoutTimer;
+let warningTimer;
 
 // Get the modals
-var timedOutModal = document.getElementById('toModal');
-var warningModal = document.getElementById('warnModal');
+let timedOutModal = document.getElementById('toModal');
+let warningModal = document.getElementById('warnModal');
 
 // Watch for user events when no dialogs are open
 if (warningModal.style.display === 'none' && timedOutModal.style.display === 'none') {
@@ -17,9 +17,9 @@ if (warningModal.style.display === 'none' && timedOutModal.style.display === 'no
 }
 
 // Get the buttons
-var timedOutButton = document.getElementById("toBtn");
-var warningButton = document.getElementById("warnBtn");
-var closeButton = document.getElementById("close");
+let timedOutButton = document.getElementById("toBtn");
+let warningButton = document.getElementById("warnBtn");
+let closeButton = document.getElementById("close");
 
 // When the user clicks the button, open the modals 
 timedOutButton.onclick = function () { showTimedoutModal() }
