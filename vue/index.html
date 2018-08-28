@@ -13,13 +13,10 @@
     </div>
 
     <script type = "text/javascript">
-        
-        Vue.use(httpVueLoader)
-        
         new Vue({
             el: '#my-modal',
             components: {
-                'modal-dialog': 'url:modal-dialog.vue'
+                'modal-dialog': httpVueLoader('modal-dialog.vue')
             }
         });
     </script>
