@@ -2,15 +2,21 @@
     <div class="modal-mask">
         <div class="modal-wrapper">
             <div class="modal-header">
-                <slot name="header"></slot>
+                <slot name="header">
+                    <p v-if="isWarning">Warning Notice</p>
+                    <p v-else>Timed Out Notice</p>
+                </slot>
             </div>
             <div class="modal-body">
                 <slot name="body">
-                    <h3>{{ warningMessage }}</h3>
+                    <p v-if="isWarning">{{ warningMessage }}</p>
+                    <p v-else>{{ timedoutMessage }}</p>
                 </slot>
             </div>
             <div class="modal-footer">
-                <slot name="footer"></slot>
+                <slot name="footer" v-if="isWarning === true">
+                    <button type="button" class="closeButton" @click="close">Close</button>
+                </slot>
             </div>
         </div>
     </div>
@@ -21,7 +27,13 @@
         data () {
             return {
                 warningMessage: 'Your session is about to expire. Please close this dialog to prevent timing out.',
-                timedoutMessage: 'Session has timed out. Please close the window and re-access your application via CONOPS.'
+                timedoutMessage: 'Session has timed out. Please close the window and re-access your application via CONOPS.',
+                isWarning: true
+            }
+        },
+        methods: {
+            close() {
+                this.$emit('close');
             }
         }
     }
@@ -29,16 +41,16 @@
 
 <style>
     .modal-mask {
-        display: block; /* Hidden by default */
+        display: block; 
         position: fixed;
-        z-index: 1; /* Sit on top */
-        padding-top: 100px; /* Location of the box */
+        z-index: 1; 
+        padding-top: 100px; 
         left: 0;
         top: 0;
         width: 100%; 
-        height: 100%; /* Full height */
-        background-color: rgb(0,0,0); /* Fallback color */
-        background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+        height: 100%; 
+        background-color: rgb(0,0,0); 
+        background-color: rgba(0,0,0,0.4);
     }
 
     .modal-wrapper {
