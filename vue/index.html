@@ -3,16 +3,55 @@
 
 <head>
     <title>Vue Modal Dialog Example</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
     <script src="https://unpkg.com/vue"></script>
     <script src="https://unpkg.com/http-vue-loader"></script>
 </head>
 
 <body>
+    <div>
+        <!-- Open modals manually -->
+        <button id="toBtn">Timed out Modal</button>
+        <button id="warnBtn">Warning modal</button>
+    </div>
+
+    <div>
+        <form>
+            <p>
+                Text Input Field:
+                <br>
+                <input type="text" name="textfield">
+                <br>
+            </p>
+
+            <p>
+                Radio Input:
+                <br>
+                <input type="radio" name="radio" value="option1"> Option 1
+                <br>
+                <input type="radio" name="radio" value="option2" checked> Option 2
+                <br>
+                <input type="radio" name="radio" value="option3"> Option 3
+                <br>
+            </p>
+
+            <p>
+                Date Input:
+                <br>
+                <input type="date" name="date">
+                <br>
+            </p>
+
+        </form>
+    </div>
+
+
     <div id="my-modal">
         <modal-dialog></modal-dialog>
     </div>
 
-    <script type = "text/javascript">
+    <script type="text/javascript">
         new Vue({
             el: '#my-modal',
             components: {
