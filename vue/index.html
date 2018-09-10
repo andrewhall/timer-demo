@@ -55,84 +55,62 @@
                 border: 1px solid #bbb;
                 background-color: #fff;
             }
-        </style>
+    </style>
     
 </head>
 <body>
     <div id="my-modal">
-            <button id="toBtn" v-on:click="showModal">Timed out Modal</button>
-            <button type="button" v-on:click="showModal">Warning Modal</button>
+            <button v-on:click="showModal('final')">Timed out Modal</button>
+            <button v-on:click="showModal('warning')">Warning Modal</button>
         
-            <div class="modal-mask" v-if="show" @close="closeModal">
+            <div class="modal-mask" v-if="show">
                 <div class="modal-wrapper">
                     <div class="modal-header">
                         <slot name="header">
-                            <p v-if="isWarning">Warning Notice</p>
-                            <p v-else>Timed Out Notice</p>
+                            <p>{{ modalHeader }}</p>
                         </slot>
                     </div>
                     <div class="modal-body">
                         <slot name="body">
-                            <p v-if="isWarning">{{ warningMessage }}</p>
-                            <p v-else>{{ timedoutMessage }}</p>
+                            <p>{{ modalMessage }}</p>
                         </slot>
                     </div>
                     <div class="modal-footer">
                         <slot name="footer" v-if="isWarning === true">
-                            <button type="button" class="closeButton" @click="close">Close</button>
+                            <button @click="closeModal">Close</button>
                         </slot>
                     </div>
                 </div>
             </div>
     </div>
 
-    <div>
-        <form>
-            <p>
-                Text Input Field:
-                <br>
-                <input type="text" name="textfield">
-                <br>
-            </p>
-
-            <p>
-                Radio Input:
-                <br>
-                <input type="radio" name="radio" value="option1"> Option 1
-                <br>
-                <input type="radio" name="radio" value="option2" checked> Option 2
-                <br>
-                <input type="radio" name="radio" value="option3"> Option 3
-                <br>
-            </p>
-
-            <p>
-                Date Input:
-                <br>
-                <input type="date" name="date">
-                <br>
-            </p>
-
-        </form>
-    </div>
-    
     <script type="text/javascript">
         new Vue({
             el: '#my-modal',
             data: function() {
             return {
-                warningMessage: 'Your session is about to expire. Please close this dialog to prevent timing out.',
-                timedoutMessage: 'Session has timed out. Please close the window and re-access your application via CONOPS.',
+                modalHeader: '',
+                modalMessage: '',
                 show: false,
-                isWarning: false
+                isWarning: true
             }
         },
         methods: {
-            close: function(){
-                this.$emit('close');
-            },
-            showModal: function() {
-                this.show = true;
+            showModal: function( type ) {
+                switch(type) {
+                    case 'final':
+                        this.modalMessage = 'Session has timed out. Please close the window and re-access your application via CONOPS.';
+                        this.modalHeader = 'Timed Out';
+                        this.isWarning = false;
+                        this.show = true;
+                        break;
+                    case 'warning':
+                        this.modalMessage = 'Your session is about to expire. Please close this dialog to prevent timing out.';
+                        this.modalHeader = 'Warning';
+                        this.isWarning = true;
+                        this.show = true;
+                        break;
+                }
             },
             closeModal: function() {
                 this.show = false;
