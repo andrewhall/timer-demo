@@ -24,7 +24,7 @@
                         {{ modalMessage }}
                     </div>
                    <div class="modal-footer" v-if="isWarning === true">
-                        <button @click="closeModal">Continue Session</button>
+                        <button @click="closeWarning">Continue Session</button>
                     </div>
                 </div>
             </div>
@@ -51,14 +51,16 @@
                 this.modalHeader = 'Session Timeout Warning';
                 this.isWarning = true;
                 this.show = true;
+                this.removeListeners();
             },
             showTimeout: function() {
                 this.modalMessage = 'Your session has timed out due to inactivity. To keep working, please close the window and re-access your application via CONOPS.';
                 this.modalHeader = 'Session Timed Out';
                 this.isWarning = false;
                 this.show = true;
+                this.removeListeners();
             },
-            closeModal: function() {
+            closeWarning: function() {
                 this.show = false;
                 this.resetTimers();
             },
@@ -69,29 +71,36 @@
                 this.timeoutTimer = setTimeout(this.showTimeout, this.timeoutDuration);
             },
             setupTimers: function() {
+                this.addListeners();
                 this.setWarningTimer();
                 this.setTimeoutTimer();
+                
             },
             resetTimers: function() {
                 clearTimeout(this.warningTimer);
                 clearTimeout(this.timeoutTimer);
                 this.setupTimers();
+            },
+            addListeners: function() {
+                window.addEventListener('click', this.resetTimers);
+                window.addEventListener('keydown', this.resetTimers);
+                window.addEventListener('wheel', this.resetTimers);
+                window.addEventListener('focus', this.resetTimers);
+            },
+            removeListeners: function() {
+                window.removeEventListener('click', this.resetTimers);
+                window.removeEventListener('keydown', this.resetTimers);
+                window.removeEventListener('wheel', this.resetTimers);
+                window.removeEventListener('focus', this.resetTimers);
             }
         },
         //run when instance is created
         created: function() {
-            this.setupTimers();
-            window.addEventListener('click', this.resetTimers);
-            window.addEventListener('keydown', this.resetTimers);
-            window.addEventListener('wheel', this.resetTimers);
-            window.addEventListener('focus', this.resetTimers);
+            this.setupTimers();            
         },
         //run when instance is destroyed
         destroyed: function() {
-            window.removeEventListener('click', this.resetTimers);
-            window.removeEventListener('keydown', this.resetTimers);
-            window.removeEventListener('wheel', this.resetTimers);
-            window.removeEventListener('focus', this.resetTimers);
+            this.destroyTimers();
         }
         });
     </script>
