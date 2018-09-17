@@ -23,8 +23,8 @@
                     <div class="modal-body">
                         {{ modalMessage }}
                     </div>
-                   <div class="modal-footer" v-if="isWarning === true">
-                        <button @click="closeWarning">Continue Session</button>
+                   <div class="modal-footer">
+                        <button :disabled="!isWarning" @click="closeWarning">Continue Session</button>
                     </div>
                 </div>
             </div>
@@ -55,7 +55,7 @@
             },
             showTimeout: function() {
                 this.modalMessage = 'Your session has timed out due to inactivity. To keep working, please close the window and re-access your application via CONOPS.';
-                this.modalHeader = 'Session Timed Out';
+                this.modalHeader = 'Session Timeout Notice';
                 this.isWarning = false;
                 this.show = true;
                 this.removeListeners();
